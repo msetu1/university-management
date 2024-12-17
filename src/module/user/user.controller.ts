@@ -3,9 +3,9 @@ import { UserService } from './user.service';
 
 // create data
 const createStudent = catchAsync(async (req, res) => {
-  const { password, student } = req.body;
+  const { password, payload } = req.body;
 
-  const result = await UserService.createStudent(password, student);
+  const result = await UserService.createStudent(password, payload);
 
   res.status(200).json({
     success: true,

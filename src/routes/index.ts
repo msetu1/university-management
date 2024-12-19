@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { UserRoute } from '../module/user/user.route';
 import { StudentRoute } from '../module/student/student.route';
-import { AcademicSemesterRoute } from '../module/academicSemister/academicSemester.route';
+import { AcademicSemesterRoute } from '../module/academicSemester/academicSemester.route';
 
 const router = Router();
 

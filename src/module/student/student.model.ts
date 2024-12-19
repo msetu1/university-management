@@ -54,7 +54,6 @@ const studentSchema = new Schema<TStudent>(
     id: {
       type: String,
       required: [true, 'Student ID is required'],
-      unique: true,
     },
     user: {
       type: Schema.Types.ObjectId,
@@ -98,11 +97,11 @@ const studentSchema = new Schema<TStudent>(
       type: String,
       required: [true, 'Profile image URL is required'],
     },
-    admissionSemester: {
-      type: Schema.Types.ObjectId,
-      ref: 'AcademicSemester',
-      required: [true, 'Admission Semester required'],
-    },
+    // admissionSemester: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'AcademicSemester',
+    //   required: [true, 'Admission Semester required'],
+    // },
   },
   {
     timestamps: true,

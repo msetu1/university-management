@@ -27,68 +27,61 @@ const localGuardianValidationSchema = z.object({
 
 // Main schema for Student
 const createStudentValidationSchema = z.object({
-  body: z.object({
-    student: z.object({
-      name: userNameValidationSchema,
-      gender: z.enum(['male', 'female', 'others'], {
-        errorMap: () => ({
-          message: "Gender must be 'male', 'female', or 'others'",
-        }),
+  student: z.object({
+    name: userNameValidationSchema,
+    gender: z.enum(['male', 'female', 'others'], {
+      errorMap: () => ({
+        message: "Gender must be 'male', 'female', or 'others'",
       }),
-      dateOfBirth: z.string(),
-      email: z.string().email('Invalid email format'),
-      contactNo: z.string().min(1, 'Contact number is required'),
-      emergencyContactNo: z
-        .string()
-        .min(1, 'Emergency contact number is required'),
-      bloodGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'], {
-        errorMap: () => ({ message: 'Invalid blood group' }),
-      }),
-      presentAddress: z.string().min(1, 'Present address is required'),
-      permanentAddress: z.string().min(1, 'Permanent address is required'),
-      guardian: guardianValidationSchema,
-      localGuardian: localGuardianValidationSchema,
-      profileImg: z.string().url('Invalid URL for profile image'),
-      admissionSemester: z.string(),
     }),
+    dateOfBirth: z.string(),
+    email: z.string().email('Invalid email format'),
+    contactNo: z.string().min(1, 'Contact number is required'),
+    emergencyContactNo: z
+      .string()
+      .min(1, 'Emergency contact number is required'),
+    bloodGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'], {
+      errorMap: () => ({ message: 'Invalid blood group' }),
+    }),
+    presentAddress: z.string().min(1, 'Present address is required'),
+    permanentAddress: z.string().min(1, 'Permanent address is required'),
+    guardian: guardianValidationSchema,
+    localGuardian: localGuardianValidationSchema,
+    profileImg: z.string().url('Invalid URL for profile image'),
+    // admissionSemester: z.string(),
   }),
 });
 const updateStudentValidationSchema = z.object({
-  body: z.object({
-    student: z.object({
-      name: userNameValidationSchema,
-      gender: z
-        .enum(['male', 'female', 'other.optional()s'], {
-          errorMap: () => ({
-            message: "Gender must be 'male', 'female', or 'others'",
-          }),
-        })
-        .optional(),
-      dateOfBirth: z.string().optional(),
-      email: z.string().email('Invalid email format').optional(),
-      contactNo: z.string().min(1, 'Contact number is required').optional(),
-      emergencyContactNo: z
-        .string()
-        .min(1, 'Emergency contact number is required')
-        .optional(),
-      bloodGroup: z
-        .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'], {
-          errorMap: () => ({ message: 'Invalid blood group' }),
-        })
-        .optional(),
-      presentAddress: z
-        .string()
-        .min(1, 'Present address is required')
-        .optional(),
-      permanentAddress: z
-        .string()
-        .min(1, 'Permanent address is required')
-        .optional(),
-      guardian: guardianValidationSchema.optional(),
-      localGuardian: localGuardianValidationSchema.optional(),
-      profileImg: z.string().url('Invalid URL for profile image').optional(),
-      admissionSemester: z.string().optional(),
-    }),
+  student: z.object({
+    name: userNameValidationSchema,
+    gender: z
+      .enum(['male', 'female', 'other.optional()s'], {
+        errorMap: () => ({
+          message: "Gender must be 'male', 'female', or 'others'",
+        }),
+      })
+      .optional(),
+    dateOfBirth: z.string().optional(),
+    email: z.string().email('Invalid email format').optional(),
+    contactNo: z.string().min(1, 'Contact number is required').optional(),
+    emergencyContactNo: z
+      .string()
+      .min(1, 'Emergency contact number is required')
+      .optional(),
+    bloodGroup: z
+      .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'], {
+        errorMap: () => ({ message: 'Invalid blood group' }),
+      })
+      .optional(),
+    presentAddress: z.string().min(1, 'Present address is required').optional(),
+    permanentAddress: z
+      .string()
+      .min(1, 'Permanent address is required')
+      .optional(),
+    guardian: guardianValidationSchema.optional(),
+    localGuardian: localGuardianValidationSchema.optional(),
+    profileImg: z.string().url('Invalid URL for profile image').optional(),
+    // admissionSemester: z.string().optional(),
   }),
 });
 

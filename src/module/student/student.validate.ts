@@ -49,6 +49,7 @@ const createStudentValidationSchema = z.object({
     localGuardian: localGuardianValidationSchema,
     profileImg: z.string().url('Invalid URL for profile image'),
     admissionSemester: z.string(),
+    academicDepartment: z.string(),
   }),
 });
 const updateStudentValidationSchema = z.object({
@@ -82,6 +83,7 @@ const updateStudentValidationSchema = z.object({
     localGuardian: localGuardianValidationSchema.optional(),
     profileImg: z.string().url('Invalid URL for profile image').optional(),
     admissionSemester: z.string().optional(),
+    academicDepartment: z.string().optional(),
   }),
 });
 

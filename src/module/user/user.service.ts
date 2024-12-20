@@ -1,10 +1,12 @@
 import config from '../../config';
+import { AppError } from '../../errors/AppError';
 import { AcademicSemester } from '../academicSemester/academicSemester.model';
 import { TStudent } from '../student/student.interface';
 import { Student } from '../student/student.model';
 import { TUser } from './user.interface';
 import { User } from './user.model';
 import { generateSemesterId } from './user.utils';
+import httpStatusCodes from 'http-status-codes';
 
 const createStudent = async (password: string, payload: TStudent) => {
   // create
@@ -21,7 +23,10 @@ const createStudent = async (password: string, payload: TStudent) => {
   );
 
   if (!admissionSemester) {
-    throw new Error('Invalid admission semester ID');
+    throw new AppError(
+      httpStatusCodes.NOT_FOUND,
+      'Invalid admission semester ID',
+    );
   }
 
   // manually generate id
@@ -39,7 +44,7 @@ const createStudent = async (password: string, payload: TStudent) => {
     const newStudent = await Student.create(payload);
     return newStudent;
   } else {
-    throw new Error('User creation failed');
+    throw new AppError(httpStatusCodes.NOT_FOUND, 'User creation failed');
   }
 };
 

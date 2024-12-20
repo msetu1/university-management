@@ -103,6 +103,11 @@ const studentSchema = new Schema<TStudent>(
       ref: 'AcademicSemester',
       required: [true, 'Admission Semester required'],
     },
+    academicDepartment: {
+      type: Schema.Types.ObjectId,
+      ref: 'AcademicDepartment',
+      required: [true, 'Academic Department required'],
+    },
   },
   {
     timestamps: true,

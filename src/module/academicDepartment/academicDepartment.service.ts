@@ -7,6 +7,39 @@ const createAcademicDepartment = async (payload: TAcademicDepartment) => {
   return result;
 };
 
+// all Department
+const allAcademicDepartments = async () => {
+  const result = await AcademicDepartment.find();
+  return result;
+};
+
+// single Department
+const singleAcademicDepartment = async (id: string) => {
+  const result = await AcademicDepartment.findById(id);
+  return result;
+};
+
+// update Department
+const updateAcademicDepartment = async (
+  id: string,
+  payload: TAcademicDepartment,
+) => {
+  const result = await AcademicDepartment.findByIdAndUpdate(id, payload, {
+    new: true,
+  });
+  return result;
+};
+
+// delete Department
+const deleteAcademicDepartment = async (id: string) => {
+  const result = await AcademicDepartment.findByIdAndDelete(id);
+  return result;
+};
+
 export const AcademicDepartmentService = {
   createAcademicDepartment,
+  allAcademicDepartments,
+  singleAcademicDepartment,
+  updateAcademicDepartment,
+  deleteAcademicDepartment,
 };

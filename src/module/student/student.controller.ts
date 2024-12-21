@@ -3,7 +3,7 @@ import { StudentService } from './student.service';
 
 // all data
 const allStudent = catchAsync(async (req, res) => {
-  const result = await StudentService.allStudents();
+  const result = await StudentService.allStudents(req.query);
 
   res.status(200).json({
     success: true,

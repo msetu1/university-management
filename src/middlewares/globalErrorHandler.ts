@@ -1,7 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { NextFunction, Request, Response } from 'express';
+import { handleZodError } from '../errors/handleZodError';
+import mongoose from 'mongoose';
+import { handleDuplicateError } from '../errors/handleDuplicateError';
+import { handleGenericError } from '../errors/handleGenericError';
+import { handleCastError } from '../errors/handleCastError';
+import { handleValidationError } from '../errors/handleValidationError';
 
 const globalErrorHandler = (
   err: any,
@@ -9,13 +16,29 @@ const globalErrorHandler = (
   res: Response,
   next: NextFunction,
 ) => {
-  const statusCode = err.statusCode || 500;
-  const message = err.message || 'Something went wrong';
+  // zod error
+  if (err.name && err.name === 'ZodError') {
+    handleZodError(err, res);
+  }
 
-  res.status(statusCode).json({
-    success: false,
-    message,
-    error: err,
-  });
+  // mongoose cast error
+  else if (err instanceof mongoose.Error.CastError) {
+    handleCastError(err, res);
+  }
+
+  // validate error
+  else if (err instanceof mongoose.Error.ValidationError) {
+    handleValidationError(err, res);
+  }
+
+  // duplicate error
+  else if (err.code && err.code === 11000) {
+    handleDuplicateError(err, res);
+  }
+
+  // generic error
+  else if (err instanceof Error) {
+    handleGenericError(err, res);
+  }
 };
 export default globalErrorHandler;

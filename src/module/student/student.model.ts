@@ -98,6 +98,10 @@ const studentSchema = new Schema<TStudent>(
       type: String,
       required: [true, 'Profile image URL is required'],
     },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
     admissionSemester: {
       type: Schema.Types.ObjectId,
       ref: 'AcademicSemester',

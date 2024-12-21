@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/:id', StudentController.singleStudent);
 
 // update data
-router.put(
+router.patch(
   '/:id',
   validateRequest(studentValidations.updateStudentValidationSchema),
   StudentController.deleteStudent,

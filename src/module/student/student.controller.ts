@@ -32,7 +32,7 @@ const updateStudent = catchAsync(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: 'Single student was retrieved successfully',
+    message: 'student updated successfully',
     data: result,
   });
 });

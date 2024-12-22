@@ -73,8 +73,7 @@ export class QueryBuilder<T> {
       fields = (this?.query?.fields as string).split(',').join(' ');
 
       this.modelQuery = this?.modelQuery.select(fields);
-
-      return this;
     }
+    return this;
   }
 }

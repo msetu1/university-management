@@ -13,7 +13,9 @@ const createCourseValidationSchema = z.object({
   preRequisiteCourses: z.array(PreRequisiteCourseValidationSchema).optional(),
   isDeleted: z.boolean().optional(),
 });
+const updateCourseValidationSchema = createCourseValidationSchema.partial();
 
 export const CourseValidations = {
   createCourseValidationSchema,
+  updateCourseValidationSchema,
 };

@@ -12,19 +12,22 @@ export class QueryBuilder<T> {
   // searching
   search(searchable: string[]) {
     const searchTerm = this?.query?.searchTerm;
-
-    this.modelQuery = this.modelQuery.find({
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      $or: searchable.map((field: any) => ({
-        [field]: { $regex: searchTerm, $options: 'i' },
-      })),
-    });
+    if (searchTerm) {
+      this.modelQuery = this.modelQuery.find({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        $or: searchable.map((field: any) => ({
+          [field]: { $regex: searchTerm, $options: 'i' },
+        })),
+      });
+    }
     return this;
   }
 
   // filtering
   filter() {
-    const queryObj = { ...this?.query }; // copy query object
+    const queryObj = { ...this?.query };
+
+    // copy query object
     const excludingImportant = [
       'searchTerm',
       'page',
@@ -33,7 +36,9 @@ export class QueryBuilder<T> {
       'sortOrder',
       'fields',
     ];
+
     excludingImportant.forEach((key) => delete queryObj[key]);
+    console.log(queryObj);
     this.modelQuery = this.modelQuery.find();
     return this;
   }

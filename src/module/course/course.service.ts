@@ -18,15 +18,17 @@ const allCourses = async (query: Record<string, unknown>) => {
     .search(searchable)
     .filter()
     .sort()
-    .paginate()
-    .select();
+    .paginate();
+
   const result = await courseQuery?.modelQuery;
   return result;
 };
 
 // single courses
 const singleCourse = async (id: string) => {
-  const result = await Course.findById(id);
+  const result = await Course.findById(id).populate(
+    'preRequisiteCourses.course',
+  );
   return result;
 };
 

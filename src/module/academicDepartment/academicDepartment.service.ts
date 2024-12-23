@@ -9,7 +9,7 @@ const createAcademicDepartment = async (payload: TAcademicDepartment) => {
 
 // all Department
 const allAcademicDepartments = async () => {
-  const result = await AcademicDepartment.find().populate('academicFaculty');
+  const result = await AcademicDepartment.find().populate('AcademicFaculty');
   return result;
 };
 

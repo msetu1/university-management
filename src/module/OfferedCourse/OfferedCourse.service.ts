@@ -7,6 +7,7 @@ import { SemesterRegister } from '../semesterRegistration/semesterRegistration.m
 import { TOfferedCourse } from './OfferedCourse.interface';
 import { OfferedCourse } from './OfferedCourse.model';
 import httpStatusCodes from 'http-status-codes';
+import { hasTimeConflict } from './OfferedCourse.utils';
 
 const createOfferedCourse = async (payload: TOfferedCourse) => {
   const {
@@ -14,7 +15,11 @@ const createOfferedCourse = async (payload: TOfferedCourse) => {
     academicFaculty,
     academicDepartment,
     course,
+    section,
     faculty,
+    days,
+    startTime,
+    endTime,
   } = payload;
 
   // Step 1: check if the semester registration id is exists!
@@ -65,13 +70,55 @@ const createOfferedCourse = async (payload: TOfferedCourse) => {
   }
 
   // Step 6: check if the department is belong to the  faculty
-  // Step 7: check if the same offered course same section in same registered semester exists
-  // Step 8: get the schedules of the faculties
-  // Step 9: check if the faculty is available at that time. If not then throw error
-  // Step 10: create the offered course
+  const isDepartmentBelongToFaculty = await AcademicDepartment.findOne({
+    _id: academicDepartment,
+    academicFaculty,
+  });
 
+  if (!isDepartmentBelongToFaculty) {
+    throw new AppError(
+      httpStatusCodes.BAD_REQUEST,
+      `This ${isAcademicDepartmentExits?.name} is not belong to the ${isAcademicFacultyExits?.name} `,
+    );
+  }
+
+  // Step 7: check if the same offered course same section in same registered semester exists
+  const isSameOfferedCourseExistsWithSameRegisteredSemesterWithSameSection =
+    await OfferedCourse.findOne({ semesterRegister, course, section });
+
+  if (isSameOfferedCourseExistsWithSameRegisteredSemesterWithSameSection) {
+    throw new AppError(
+      httpStatusCodes.BAD_REQUEST,
+      `Offered course is already in the same section`,
+    );
+  }
+
+  // Step 8: get the schedules of the faculties
+  const assignedSchedules = await OfferedCourse.find({
+    semesterRegister,
+    faculty,
+    days: { $in: days },
+  }).select('days startTime endTime');
+
+  // Step 9: check if the faculty is available at that time. If not then throw error
+  const newSchedule = {
+    days,
+    startTime,
+    endTime,
+  };
+
+  if (hasTimeConflict(assignedSchedules, newSchedule)) {
+    throw new AppError(
+      httpStatusCodes.CONFLICT,
+      'this faculty in not available at that time ! choose other time or day',
+    );
+  }
+
+  // Step 10: create the offered course
   const result = await OfferedCourse.create({ ...payload, academicSemester });
   return result;
+
+  return null;
 };
 
 export const OfferedCourseService = {

@@ -7,7 +7,7 @@ import { QueryBuilder } from '../../builder/QueryBuilder';
 import { RegisterStatus } from './semesterRegistration.constant';
 
 const createSemesterRegister = async (payload: TSemesterRegister) => {
-  const academicSemester = payload?.AcademicSemester;
+  const academicSemester = payload?.academicSemester;
 
   // check register 'UPCOMING' and 'ONGOING'
   const isUpcomingOrOngoingSemester = await SemesterRegister.findOne({
@@ -48,7 +48,7 @@ const createSemesterRegister = async (payload: TSemesterRegister) => {
 // all semester
 const allSemesterRegisters = async (query: Record<string, unknown>) => {
   const semesterRegisterQuery = new QueryBuilder(
-    SemesterRegister.find().populate('AcademicSemester'),
+    SemesterRegister.find().populate('academicSemester'),
     query,
   )
     .filter()

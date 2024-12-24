@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { semesterRegisterStatus } from './semesterRegistration.constant';
 
 const createSemesterRegistrationValidate = z.object({
-  AcademicSemester: z.string(),
+  academicSemester: z.string(),
   status: z.enum([...(semesterRegisterStatus as [string, ...string[]])]),
   startDate: z.string().datetime(),
   endDate: z.string().datetime(),
@@ -10,7 +10,7 @@ const createSemesterRegistrationValidate = z.object({
   maxCredit: z.number(),
 });
 const updateSemesterRegistrationValidate = z.object({
-  AcademicSemester: z.string().optional(),
+  academicSemester: z.string().optional(),
   status: z
     .enum([...(semesterRegisterStatus as [string, ...string[]])])
     .optional(),

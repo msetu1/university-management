@@ -11,4 +11,10 @@ router.post(
   OfferedCourseController.createOfferedCourse,
 );
 
+router.patch(
+  '/:id',
+  validateRequest(OfferedCourseValidate.updateOfferedCourseValidate),
+  OfferedCourseController.updateOfferedCourse,
+);
+
 export const OfferedCourseRoute = router;

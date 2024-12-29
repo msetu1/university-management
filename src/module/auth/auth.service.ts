@@ -6,8 +6,7 @@ import httpStatusCodes from 'http-status-codes';
 import jwt from 'jsonwebtoken';
 
 const loginUser = async (payload: TLoginUser) => {
-  const user = await User.isUserExistsByCustomId(payload.id);
-
+  const user = await User.isUserExistsByCustomId(payload?.id);
   if (!user) {
     throw new AppError(httpStatusCodes.NOT_FOUND, 'This user is not found !');
   }

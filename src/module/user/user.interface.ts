@@ -11,7 +11,6 @@ export interface TUser {
 }
 
 export interface UserModel extends Model<TUser> {
-  // myStaticMethod(): string;
   isUserExistsByCustomId(id: string): Promise<TUser>;
   isPasswordMatched(
     plainTextPassword: string,

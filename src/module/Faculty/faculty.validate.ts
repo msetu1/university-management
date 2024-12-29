@@ -43,26 +43,28 @@ const updateUserNameValidationSchema = z.object({
 });
 
 export const updateFacultyValidationSchema = z.object({
-  faculty: z.object({
-    designation: z.string().optional(),
-    name: updateUserNameValidationSchema,
-    gender: z.enum(['male', 'female', 'others'], {
+  designation: z.string().optional(),
+  name: updateUserNameValidationSchema.optional(),
+  gender: z
+    .enum(['male', 'female', 'others'], {
       errorMap: () => ({
         message: "Gender must be 'male', 'female', or 'others'",
       }),
-    }),
-    dateOfBirth: z.string().optional(),
-    email: z.string().email().optional(),
-    contactNo: z.string().optional(),
-    emergencyContactNo: z.string().optional(),
-    bloodGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'], {
+    })
+    .optional(),
+  dateOfBirth: z.string().optional(),
+  email: z.string().email().optional(),
+  contactNo: z.string().optional(),
+  emergencyContactNo: z.string().optional(),
+  bloodGroup: z
+    .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'], {
       errorMap: () => ({ message: 'Invalid blood group' }),
-    }),
-    presentAddress: z.string().optional(),
-    permanentAddress: z.string().optional(),
-    profileImg: z.string().optional(),
-    academicDepartment: z.string().optional(),
-  }),
+    })
+    .optional(),
+  presentAddress: z.string().optional(),
+  permanentAddress: z.string().optional(),
+  profileImg: z.string().optional(),
+  academicDepartment: z.string().optional(),
 });
 
 export const FacultyValidations = {

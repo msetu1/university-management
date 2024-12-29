@@ -30,7 +30,9 @@ const getSingleFaculty = async (id: string) => {
 };
 
 const updateFaculty = async (id: string, payload: Partial<TFaculty>) => {
-  const { name, ...remainingFacultyData } = payload;
+  const { ...remainingFacultyData } = payload;
+
+  const name = payload?.name;
 
   const modifiedUpdatedData: Record<string, unknown> = {
     ...remainingFacultyData,

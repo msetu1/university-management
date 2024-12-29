@@ -24,7 +24,7 @@ const getAllFaculties = catchAsync(async (req, res) => {
 
 const updateFaculty = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const { faculty } = req.body;
+  const faculty = req.body;
   const result = await FacultyServices.updateFaculty(id, faculty);
 
   res.status(200).json({
@@ -36,12 +36,12 @@ const updateFaculty = catchAsync(async (req, res) => {
 
 const deleteFaculty = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await FacultyServices.deleteFaculty(id);
+  await FacultyServices.deleteFaculty(id);
 
   res.status(200).json({
     success: true,
     message: 'Faculty is deleted successfully',
-    data: result,
+    data: {},
   });
 });
 

@@ -7,7 +7,7 @@ const singleAdmin = catchAsync(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: 'All Admin  retrieved  successfully',
+    message: 'Single Admin  retrieved  successfully',
     data: result,
   });
 });
@@ -17,7 +17,7 @@ const allAdmins = catchAsync(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: 'single Admin  retrieved  successfully',
+    message: 'All Admin  retrieved  successfully',
     data: result,
   });
 });
@@ -29,7 +29,7 @@ const updateAdmin = catchAsync(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: 'All Admin  retrieved  successfully',
+    message: ' Admin updated successfully',
     data: result,
   });
 });
@@ -40,7 +40,7 @@ const deleteAdmin = catchAsync(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: 'All Admin  retrieved  successfully',
+    message: ' Admin  deleted  successfully',
     data: result,
   });
 });

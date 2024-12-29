@@ -6,10 +6,11 @@ import { Admin } from './admin.model';
 import httpStatusCodes from 'http-status-codes';
 import { AppError } from '../../errors/AppError';
 import { User } from '../user/user.model';
+import { AdminSearchableFields } from './admin.constant';
 
 const AllAdmins = async (query: Record<string, unknown>) => {
   const adminQuery = new QueryBuilder(Admin.find(), query)
-    .search()
+    .search(AdminSearchableFields)
     .filter()
     .sort()
     .paginate()

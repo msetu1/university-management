@@ -2,6 +2,7 @@ import express from 'express';
 import { AcademicFacultyController } from './academicFaculty.controller';
 import { validateRequest } from '../../middlewares/validateRequest';
 import { AcademicFacultyValidate } from './academicFaculty.validate';
+import { auth } from '../../middlewares/auth';
 
 const router = express.Router();
 
@@ -17,6 +18,6 @@ router.put(
   AcademicFacultyController.updateAcademicFaculty,
 );
 router.delete('/:id', AcademicFacultyController.deleteAcademicFaculty);
-router.get('/', AcademicFacultyController.allAcademicFaculties);
+router.get('/', auth(), AcademicFacultyController.allAcademicFaculties);
 
 export const AcademicFacultyRoute = router;
